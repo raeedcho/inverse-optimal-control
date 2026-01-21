@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ioc"
+version = "0.1.0"
+description = "Inverse Optimal Control Adapted to the Noise Characteristics of the Human Sensorimotor System"
+readme = "README.md"
+license = {text = "LICENSE"}
+authors = [
+    {name = "Schultheis, Straub, & Rothkopf"},
+]
+dependencies = [
+    "jax",
+    "jaxlib",
+    "Py-BOBYQA",
+    "matplotlib",
+    "numpyro",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[tool.setuptools]
+packages = ["ioc"]
