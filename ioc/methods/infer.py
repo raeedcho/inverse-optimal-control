@@ -112,7 +112,7 @@ class FullyObservableApproximateInference(ApproximateInference):
             Sxx = Sigma[:, :d, :d]
             Shx = Sigma[:, d:, :d]
             mu_x = mu[:, :d]
-            mu_ba = mu[:, d:] + jnp.sum(Shx * jnp.linalg.solve(Sxx, xt - mu_x)[:, None, :], axis=-1)
+            mu_ba = mu[:, d:] + jnp.sum(Shx * jnp.linalg.solve(Sxx, (xt - mu_x)[..., None]).squeeze(-1)[:, None, :], axis=-1)
             Sigma_ba = Shh - Shx @ jnp.linalg.solve(Sxx, Sxh)
 
             # updating: p(x_t+1, xhat_t+1 | x_1:t)
@@ -207,7 +207,7 @@ class PartialObservableApproximateInference(ApproximateInference):
             Sxx = Sigma[:, :-d, :-d]
             Szx = Sigma[:, -d:, :-d]
             mu_z = mu[:, -d:]
-            mu_ba = mu[:, :-d] + jnp.sum(Sxz * jnp.linalg.solve(Szz, zt - mu_z)[:, None, :], axis=-1)
+            mu_ba = mu[:, :-d] + jnp.sum(Sxz * jnp.linalg.solve(Szz, (zt - mu_z)[..., None]).squeeze(-1)[:, None, :], axis=-1)
             Sigma_ba = Sxx - Sxz @ jnp.linalg.solve(Szz, Szx)
 
             # updating: p(x_t+1, xhat_t+1, z_t+1 | z_t1:t)

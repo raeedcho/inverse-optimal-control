@@ -1,6 +1,7 @@
 """
 A collection of helper functions for optimization with JAX.
 """
+import jax
 import numpy as np
 import pybobyqa
 import scipy.optimize
@@ -8,9 +9,7 @@ from jax import jacfwd, jit
 from jax.flatten_util import ravel_pytree
 from jax.tree_util import tree_flatten
 
-from jax.config import config
-
-config.update('jax_enable_x64', True)
+jax.config.update('jax_enable_x64', True)
 
 
 def minimize(fun, x0,

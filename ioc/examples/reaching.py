@@ -51,7 +51,7 @@ class ReachingProblem(ControlTask):
                        [0., 10 ** v, 0., 0., 0.],
                        [0., 0., 10 ** f, 0., 0.]])
         Q = jnp.zeros((5, 5, T))
-        Q = jax.ops.index_update(Q, jax.ops.index[:, :, -1], d.T @ d)
+        Q = Q.at[jnp.index_exp[:, :, -1]].set(d.T @ d)
 
         x0 = np.zeros((5, 1))
         x0[4] = target_dist
@@ -110,7 +110,7 @@ class PartiallyObservedReachingProblem(PartiallyObservableControlTask):
                        [0., 10 ** v, 0., 0., 0.],
                        [0., 0., 10 ** f, 0., 0.]])
         Q = jnp.zeros((5, 5, T))
-        Q = jax.ops.index_update(Q, jax.ops.index[:, :, -1], d.T @ d)
+        Q = Q.at[jnp.index_exp[:, :, -1]].set(d.T @ d)
 
         x0 = np.zeros((5, 1))
         x0[4] = target_dist

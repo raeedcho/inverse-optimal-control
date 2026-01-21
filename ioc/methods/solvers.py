@@ -257,7 +257,7 @@ class TodorovSOC(Solver):
                 K, _, costs, i = args
                 L, c = TodorovSOC.backward_pass(A, B, C, C02, D, D02, E02, H, T, Q, R, S0, X0, K)
                 K_new = TodorovSOC.forward_pass(A, B, C, H, D, C02, D02, E02, S0, X0, L)
-                costs = jops.index_update(costs, i, c)
+                costs = costs.at[i].set(c)
 
                 return [K_new, L, costs, i + 1]
 
