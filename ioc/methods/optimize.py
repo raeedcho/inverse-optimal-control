@@ -173,6 +173,7 @@ def minimize(fun, x0,
 
     # pack the output back into a PyTree
     results["x"] = unravel(results["x"])
+    results["f"] = results.pop("fun")
     return results
 
 
